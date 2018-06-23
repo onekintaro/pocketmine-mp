@@ -31,7 +31,7 @@ USER container
 ENV USER=container HOME=/home/container
 
 # Make the directory we will need
-RUN	mkdir -p /home/container
+#RUN	mkdir -p /home/container
 WORKDIR /home/container
 
 # Grab the pre-built PHP 7.2 distribution from PMMP
