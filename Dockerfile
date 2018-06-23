@@ -1,5 +1,5 @@
 # ########################################################################################
-# POCKETMINE-MP Docker Image
+# POCKETMINE-MP Docker Image (pterodactyl.io mod for egg)
 #
 # This is a stand-alone image that utilizes the latest version of the Pocketmine-MP PHP
 # based server (https://pmmp.io/)
@@ -21,9 +21,14 @@ FROM ubuntu:latest
 MAINTAINER Christopher Scheidel edit by Onekintaro <kintaro221@gmail.com>
 
 # Install dependencies
-RUN apt-get update && \
-	apt-get -y install wget && \
-	rm -rf /var/lib/apt/lists/*
+RUN apt update \
+    && apt upgrade -y \
+    && apt install -y tar wget curl iproute2 openssl \
+    && apt update -y \
+    && useradd -d /home/container -m container
+
+USER container
+ENV USER=container HOME=/home/container
 
 # Make the directory we will need
 RUN	mkdir -p /home/container
