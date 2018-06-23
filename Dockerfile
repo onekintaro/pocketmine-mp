@@ -39,7 +39,7 @@ RUN wget -q -O - https://jenkins.pmmp.io/job/PocketMine-MP/Alpha/artifact/Pocket
 
 # Grab the start script and make it executable
 RUN wget -q -O - https://raw.githubusercontent.com/pmmp/PocketMine-MP/master/start.sh > /home/container/start.sh && \
-  chmod +x /minecraft/start.sh
+  chmod +x /home/container/start.sh
 
 # Add the custom properties from our docker project
 ADD server.properties /data/server.properties
