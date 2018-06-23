@@ -18,7 +18,7 @@
 
 FROM ubuntu:latest
 
-MAINTAINER Christopher Scheidel <christopher.scheidel@gmail.com>
+MAINTAINER Christopher Scheidel edit by Onekintaro <kintaro221@gmail.com>
 
 # Install dependencies
 RUN apt-get update && \
@@ -26,19 +26,19 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/*
 
 # Make the directory we will need
-RUN	mkdir -p /data /minecraft
-WORKDIR /minecraft
+RUN	mkdir -p /data /home/container
+WORKDIR /home/container
 
 # Grab the pre-built PHP 7.2 distribution from PMMP
-RUN wget -q -O - https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastSuccessfulBuild/artifact/PHP-7.2-Linux-x86_64.tar.gz > /minecraft/PHP-7.2-Linux-x86_64.tar.gz && \
-  cd /minecraft && \
+RUN wget -q -O - https://jenkins.pmmp.io/job/PHP-7.2-Aggregate/lastSuccessfulBuild/artifact/PHP-7.2-Linux-x86_64.tar.gz > /home/container/PHP-7.2-Linux-x86_64.tar.gz && \
+  cd /home/container && \
 	tar -xvf PHP-7.2-Linux-x86_64.tar.gz
 
 # Grab the latest Alpha PHAR
-RUN wget -q -O - https://jenkins.pmmp.io/job/PocketMine-MP/Alpha/artifact/PocketMine-MP.phar > /minecraft/PocketMine-MP.phar
+RUN wget -q -O - https://jenkins.pmmp.io/job/PocketMine-MP/Alpha/artifact/PocketMine-MP.phar > /home/container/PocketMine-MP.phar
 
 # Grab the start script and make it executable
-RUN wget -q -O - https://raw.githubusercontent.com/pmmp/PocketMine-MP/master/start.sh > /minecraft/start.sh && \
+RUN wget -q -O - https://raw.githubusercontent.com/pmmp/PocketMine-MP/master/start.sh > /home/container/start.sh && \
   chmod +x /minecraft/start.sh
 
 # Add the custom properties from our docker project
@@ -57,17 +57,17 @@ RUN touch /data/banned-ips.txt && \
 	touch /data/server.log
 
 # Move the configuration items out of the main directory and sym link items back
-RUN ln -s /data/banned-ips.txt /minecraft/banned-ips.txt && \
-	ln -s /data/banned-players.txt /minecraft/banned-players.txt && \
-	ln -s /data/ops.txt /minecraft/ops.txt && \
-	ln -s /data/players /minecraft/players && \
-	ln -s /data/pocketmine.yml /minecraft/pocketmine.yml && \
-	ln -s /data/server.properties /minecraft/server.properties && \
-	ln -s /data/white-list.txt /minecraft/white-list.txt && \
-	ln -s /data/worlds /minecraft/worlds && \
-	ln -s /data/plugins /minecraft/plugins && \
-	ln -s /data/resource_packs /minecraft/resource_packs && \
-	ln -s /data/server.log /minecraft/server.log
+RUN ln -s /data/banned-ips.txt /home/container/banned-ips.txt && \
+	ln -s /data/banned-players.txt /home/container/banned-players.txt && \
+	ln -s /data/ops.txt /home/container/ops.txt && \
+	ln -s /data/players /home/container/players && \
+	ln -s /data/pocketmine.yml /home/container/pocketmine.yml && \
+	ln -s /data/server.properties /home/container/server.properties && \
+	ln -s /data/white-list.txt /home/container/white-list.txt && \
+	ln -s /data/worlds /home/container/worlds && \
+	ln -s /data/plugins /home/container/plugins && \
+	ln -s /data/resource_packs /home/container/resource_packs && \
+	ln -s /data/server.log /home/container/server.log
 
 
 # Expose the right port
