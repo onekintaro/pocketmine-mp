@@ -71,10 +71,10 @@ RUN ln -s /data/banned-ips.txt /minecraft/banned-ips.txt && \
 
 
 # Expose the right port
-EXPOSE 19132/udp
+#EXPOSE 19132/udp
 
 # Set up the volume for the data
-VOLUME /data
+#VOLUME /data
 
 # Run the app when launched
-CMD [ "bash", "/minecraft/start.sh", "--no-wizard"]
+#CMD [ "bash", "/minecraft/start.sh", "--no-wizard"]
